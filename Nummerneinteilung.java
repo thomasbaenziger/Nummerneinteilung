@@ -1,4 +1,3 @@
-
 public class Nummerneinteilung {
 	
 	private String nummer1;
