@@ -6,7 +6,7 @@ public class ExcelStarter {
 		
 		NummerneinteilungReader nummerneinteilungReader = new NummerneinteilungReader();
 		
-		List<Nummerneinteilung> listemitNummern = nummerneinteilungReader.ermittleExcelZeilen("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\Nummerneinteilung.xlsx");
+		List<Nummerneinteilung> listemitNummern = nummerneinteilungReader.ermittleExcelZeilen("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung.xlsx");
 		
 		for(Nummerneinteilung k : listemitNummern) {
 			System.out.println(k);
