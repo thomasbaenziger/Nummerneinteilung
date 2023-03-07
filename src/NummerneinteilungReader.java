@@ -5,7 +5,7 @@ import org.apache.poi.ss.util.CellReference;
 
 public class NummerneinteilungReader extends AbstractExcelReader<Nummerneinteilung> {
 	
-	private static final String NUMMERNEINTEILUNG_SHEETNAME = "Nummerneinteilung";
+	private static final String NUMMERNEINTEILUNG_SHEETNAME = "Tabelle1";
 	
 	@Override
 	protected String getZuLesendesExcelBlatt() {
@@ -22,9 +22,9 @@ public class NummerneinteilungReader extends AbstractExcelReader<Nummerneinteilu
 		Cell nummer2Zelle = zeile.getCell(NummerneinteilungSpalten.Nummer2.spaltenindex);
 		Cell nummer3Zelle = zeile.getCell(NummerneinteilungSpalten.Nummer3.spaltenindex);
 		
-		nummerneinteilung.setNummer1(nummer1Zelle.getStringCellValue());
-		nummerneinteilung.setNummer2(nummer2Zelle.getStringCellValue());
-		nummerneinteilung.setNummer3(nummer3Zelle.getStringCellValue());
+		nummerneinteilung.setNummer1((int)nummer1Zelle.getNumericCellValue());
+		nummerneinteilung.setNummer2((int)nummer2Zelle.getNumericCellValue());
+		nummerneinteilung.setNummer3((int)nummer3Zelle.getNumericCellValue());
 		
 		return nummerneinteilung;
 	}
