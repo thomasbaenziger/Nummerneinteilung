@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -30,9 +32,21 @@ public class ExcelImporter {
       int numCols = sheet.getRow(0).getLastCellNum();
       
       // Create a 2-dimensional array to hold the cell values
+      List<String> headers = new ArrayList<>();
       int[][] exceldata = new int[numRows-1][numCols];
       
+      
       // Loop through each row in the sheet
+      // Get the headers from the excel and store them in a list
+      Row headerrow = sheet.getRow(0);
+      // Loop through each column in the row
+      for (int j = 0; j < numCols; j++) {
+        Cell cell = headerrow.getCell(j);
+        // Get the cell value as a string and add it to the list
+        headers.add(cell.getStringCellValue());
+      }   
+      
+      // Get the Excel values
       // Start with int=1 because we want to cut the headers in the excel
       for (int i = 1; i < numRows; i++) {
         Row row = sheet.getRow(i);
@@ -44,7 +58,7 @@ public class ExcelImporter {
           exceldata[j][i-1] = value;
         }
       }
-      
+           
       // Close the input stream and workbook objects to free up resources
       inputStream.close();
       workbook.close();
@@ -60,6 +74,8 @@ public class ExcelImporter {
     	    
       // Find the two arrays that match on the most values
       int maxMatches = 0;
+      String TitleMatch1 = null;
+      String TitleMatch2 = null;
       int[] bestMatch1 = null;
       int[] bestMatch2 = null;
     
@@ -69,6 +85,8 @@ public class ExcelImporter {
 	        
     		  if (matches > maxMatches) {
     			  maxMatches = matches;
+    			  TitleMatch1 = headers.get(i);
+				  TitleMatch2 = headers.get(j);
     			  bestMatch1 = exceldata[i];
     			  bestMatch2 = exceldata[j];
     		  }
@@ -77,8 +95,8 @@ public class ExcelImporter {
     
       // Print the results
       System.out.println("The two arrays that match on the most values are:");
-      System.out.println(Arrays.toString(bestMatch1));
-      System.out.println(Arrays.toString(bestMatch2));
+      System.out.println(TitleMatch1 + Arrays.toString(bestMatch1));
+      System.out.println(TitleMatch2 + Arrays.toString(bestMatch2));
 
       
     } catch (IOException e) {
