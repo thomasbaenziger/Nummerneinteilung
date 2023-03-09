@@ -89,7 +89,7 @@ public class ExcelImporter {
 				  TitleMatch2 = headers.get(j);
     			  bestMatch1 = exceldata[i];
     			  bestMatch2 = exceldata[j];
-    		  }
+			  }
     	  }
       }
     
@@ -97,7 +97,6 @@ public class ExcelImporter {
       System.out.println("The two arrays that match on the most values are:");
       System.out.println(TitleMatch1 + Arrays.toString(bestMatch1));
       System.out.println(TitleMatch2 + Arrays.toString(bestMatch2));
-
       
     } catch (IOException e) {
       e.printStackTrace();
