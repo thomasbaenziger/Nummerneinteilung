@@ -23,40 +23,84 @@ public class ExcelImporter {
 
 			// Create a XSSFWorkbook object from the file input stream
 			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+			
 
+			//**************************************************************************//
+			//Create a sheet for the NLB numbers											//
+			//**************************************************************************//
+			
 			// Get the first sheet from the workbook
-			Sheet sheet = workbook.getSheet("Tabelle1");
+			Sheet sheetNLB = workbook.getSheet("NummernNLB");
 
 			// Get the number of rows and columns in the sheet
-			int numRows = sheet.getLastRowNum() + 1;
-			int numCols = sheet.getRow(0).getLastCellNum();
-
+			int numRowsNLB = sheetNLB.getLastRowNum() + 1;
+			int numColsNLB = sheetNLB.getRow(0).getLastCellNum();
+			
 			// Create a 2-dimensional array to hold the cell values
-			List<String> headers = new ArrayList<>();
-			int[][] exceldata = new int[numRows - 1][numCols];
+			List<String> headersNLB = new ArrayList<>();
+			int[][] exceldataNLB = new int[numRowsNLB][numColsNLB-1];
 
 			// Loop through each row in the sheet
 			// Get the headers from the excel and store them in a list
-			Row headerrow = sheet.getRow(0);
+			Row headerrowNLB = sheetNLB.getRow(0);
 			// Loop through each column in the row
-			for (int j = 0; j < numCols; j++) {
-				Cell cell = headerrow.getCell(j);
+			for (int j = 0; j < numColsNLB; j++) {
+				Cell cell = headerrowNLB.getCell(j);
 				// Get the cell value as a string and add it to the list
-				headers.add(cell.getStringCellValue());
+				headersNLB.add(cell.getStringCellValue());
 			}
 
 			// Get the Excel values
 			// Start with int=1 because we want to cut the headers in the excel
-			for (int i = 1; i < numRows; i++) {
-				Row row = sheet.getRow(i);
+			for (int i = 1; i < numRowsNLB; i++) {
+				Row row = sheetNLB.getRow(i);
 				// Loop through each column in the row
-				for (int j = 0; j < numCols; j++) {
+				for (int j = 0; j < numColsNLB; j++) {
 					Cell cell = row.getCell(j);
 					// Get the cell value as a string and add it to the array
 					int value = (int) cell.getNumericCellValue();
-					exceldata[j][i - 1] = value;
+					exceldataNLB[j][i - 1] = value;
 				}
 			}
+			
+			//**************************************************************************//
+			//Create a sheet for the 1L numbers											//
+			//**************************************************************************//
+			
+			// Get the first sheet from the workbook
+			Sheet sheet1L = workbook.getSheet("Nummern1L");
+
+			// Get the number of rows and columns in the sheet
+			int numRows1L = sheet1L.getLastRowNum() + 1;
+			int numCols1L = sheet1L.getRow(0).getLastCellNum();			
+			
+			// Create a 2-dimensional array to hold the cell values
+			List<String> headers1L = new ArrayList<>();
+			int[][] exceldata1L = new int[numRows1L][numCols1L-1];
+
+			// Loop through each row in the sheet
+			// Get the headers from the excel and store them in a list
+			Row headerrow1L = sheet1L.getRow(0);
+			// Loop through each column in the row
+			for (int j = 0; j < numCols1L; j++) {
+				Cell cell = headerrow1L.getCell(j);
+				// Get the cell value as a string and add it to the list
+				headers1L.add(cell.getStringCellValue());
+			}
+
+			// Get the Excel values
+			// Start with int=1 because we want to cut the headers in the excel
+			for (int i = 1; i < numRows1L; i++) {
+				Row row = sheet1L.getRow(i);
+				// Loop through each column in the row
+				for (int j = 0; j < numCols1L; j++) {
+					Cell cell = row.getCell(j);
+					// Get the cell value as a string and add it to the array
+					int value = (int) cell.getNumericCellValue();
+					exceldata1L[j][i - 1] = value;
+				}
+			}
+
 
 			// Close the input stream and workbook objects to free up resources
 			inputStream.close();
@@ -73,9 +117,9 @@ public class ExcelImporter {
 			// Find the two arrays that match on the most values
 			int[][] maxMatches = new int[3][3];
 
-			for (int i = 0; i < exceldata.length; i++) {
-				for (int j = i + 1; j < exceldata.length; j++) {
-					int matches = countMatches(exceldata[i], exceldata[j]);
+			for (int i = 0; i < exceldataNLB.length; i++) {
+				for (int j = 0; j < exceldata1L.length; j++) {
+					int matches = countMatches(exceldataNLB[i], exceldata1L[j]);
 
 					if (matches > maxMatches[0][0]) {
 						// Store the current Matches Array to an temp Array
@@ -121,23 +165,23 @@ public class ExcelImporter {
 			
 			// Print the results
 			System.out.println("The two arrays that match on the most values are:");
-			System.out.println(headers.get(maxMatches[0][1]) + " " + headers.get(maxMatches[0][2]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[0][1]]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[0][2]]));
+			System.out.println(headersNLB.get(maxMatches[0][1]) + " " + headers1L.get(maxMatches[0][2]) + 
+					"\n" + Arrays.toString(exceldataNLB[maxMatches[0][1]]) + 
+					"\n" + Arrays.toString(exceldata1L[maxMatches[0][2]]));
 			System.out.println("Matching on " + maxMatches[0][0] + " values.");
 			System.out.println("\n" + "\n");
 			
 			System.out.println("The two arrays that match on the secound most values are:");
-			System.out.println(headers.get(maxMatches[1][1]) + " " + headers.get(maxMatches[1][2]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[1][1]]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[1][2]]));
+			System.out.println(headersNLB.get(maxMatches[1][1]) + " " + headers1L.get(maxMatches[1][2]) + 
+					"\n" + Arrays.toString(exceldataNLB[maxMatches[1][1]]) + 
+					"\n" + Arrays.toString(exceldata1L[maxMatches[1][2]]));
 			System.out.println("Matching on " + maxMatches[1][0] + " values.");
 			System.out.println("\n" + "\n");
 			
 			System.out.println("The two arrays that match on the third most values are:");
-			System.out.println(headers.get(maxMatches[2][1]) + " " + headers.get(maxMatches[2][2]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[2][1]]) + 
-					"\n" + Arrays.toString(exceldata[maxMatches[2][2]]));
+			System.out.println(headersNLB.get(maxMatches[2][1]) + " " + headers1L.get(maxMatches[2][2]) + 
+					"\n" + Arrays.toString(exceldataNLB[maxMatches[2][1]]) + 
+					"\n" + Arrays.toString(exceldata1L[maxMatches[2][2]]));
 			System.out.println("Matching on " + maxMatches[2][0] + " values.");
 			System.out.println("\n" + "\n");
 
