@@ -16,7 +16,7 @@ public class ExcelImporter {
 
 		try {
 			// Create a File object that represents the Excel file to be imported
-			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung.xlsx");
+			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung_22_23.xlsx");
 
 			// Create a FileInputStream to read the file
 			FileInputStream inputStream = new FileInputStream(file);
