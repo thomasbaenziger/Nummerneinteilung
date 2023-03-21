@@ -114,8 +114,8 @@ public class ExcelImporter {
 //				System.out.println();
 //			}
 
-			// Find the two arrays that match on the most values
-			int[][] maxMatches = new int[3][3];
+			// Find the list combinations
+			int[][] maxMatches = new int[5][5];
 
 			for (int i = 0; i < exceldataNLB.length; i++) {
 				for (int j = 0; j < exceldata1L.length; j++) {
@@ -123,7 +123,7 @@ public class ExcelImporter {
 
 					if (matches > maxMatches[0][0]) {
 						// Store the current Matches Array to an temp Array
-						int[][] tempMatches = new int[3][3];
+						int[][] tempMatches = new int[5][5];
 						for (int k = 0; k < maxMatches.length; k++) {
 						    for (int l= 0; l < maxMatches[k].length; l++) {
 						        tempMatches[k][l] = maxMatches[k][l];
@@ -138,27 +138,77 @@ public class ExcelImporter {
 						// Move the current number one down
 						maxMatches[1] = tempMatches[0];
 						maxMatches[2] = tempMatches[1];
+						maxMatches[3] = tempMatches[2];
+						maxMatches[4] = tempMatches[3];
+						
 					} else if(matches > maxMatches[1][0]) {
 						// Store the current Matches Array to an temp Array
-						int[][] tempMatches = new int[3][3];
+						int[][] tempMatches = new int[5][5];
 						for (int k = 0; k < maxMatches.length; k++) {
 						    for (int l= 0; l < maxMatches[k].length; l++) {
 						        tempMatches[k][l] = maxMatches[k][l];
 						    }
 						}
 						
-						// Store the amount of matches and move the other ranks
+						// Store the amount of matches
 						maxMatches[1][0] = matches;
-						maxMatches[2] = tempMatches[1];
+						
 						//Store the row and colum
 						maxMatches[1][1] = i;
 						maxMatches[1][2] = j;
+						
+						// Move the other ranks
+						maxMatches[2] = tempMatches[1];
+						maxMatches[3] = tempMatches[2];
+						maxMatches[4] = tempMatches[3];
+						
 					} else if(matches > maxMatches[2][0]) {
+						// Store the current Matches Array to an temp Array
+						int[][] tempMatches = new int[5][5];
+						for (int k = 0; k < maxMatches.length; k++) {
+						    for (int l= 0; l < maxMatches[k].length; l++) {
+						        tempMatches[k][l] = maxMatches[k][l];
+						    }
+						}
+
 						// Store the amount of matches
 						maxMatches[2][0] = matches;
+						
 						//Store the row and colum
 						maxMatches[2][1] = i;
 						maxMatches[2][2] = j;
+						
+						// Move the other ranks
+						maxMatches[3] = tempMatches[2];
+						maxMatches[4] = tempMatches[3];
+						
+					}else if(matches > maxMatches[3][0]) {
+						// Store the current Matches Array to an temp Array
+						int[][] tempMatches = new int[5][5];
+						for (int k = 0; k < maxMatches.length; k++) {
+						    for (int l= 0; l < maxMatches[k].length; l++) {
+						        tempMatches[k][l] = maxMatches[k][l];
+						    }
+						}
+
+						// Store the amount of matches
+						maxMatches[3][0] = matches;
+						
+						//Store the row and colum
+						maxMatches[3][1] = i;
+						maxMatches[3][2] = j;
+						
+						// Move the other ranks
+						maxMatches[4] = tempMatches[3];
+						
+					} else if(matches > maxMatches[4][0]) {
+						
+						// Store the amount of matches
+						maxMatches[4][0] = matches;
+						
+						//Store the row and colum
+						maxMatches[4][1] = i;
+						maxMatches[4][2] = j;
 					}
 				}
 			}
@@ -171,20 +221,34 @@ public class ExcelImporter {
 			System.out.println("Matching on " + maxMatches[0][0] + " values.");
 			System.out.println("\n" + "\n");
 			
-			System.out.println("The two arrays that match on the secound most values are:");
+			System.out.println("The two arrays that match on the 2. most values are:");
 			System.out.println(headersNLB.get(maxMatches[1][1]) + " " + headers1L.get(maxMatches[1][2]) + 
 					"\n" + Arrays.toString(exceldataNLB[maxMatches[1][1]]) + 
 					"\n" + Arrays.toString(exceldata1L[maxMatches[1][2]]));
 			System.out.println("Matching on " + maxMatches[1][0] + " values.");
 			System.out.println("\n" + "\n");
 			
-			System.out.println("The two arrays that match on the third most values are:");
+			System.out.println("The two arrays that match on the 3. most values are:");
 			System.out.println(headersNLB.get(maxMatches[2][1]) + " " + headers1L.get(maxMatches[2][2]) + 
 					"\n" + Arrays.toString(exceldataNLB[maxMatches[2][1]]) + 
 					"\n" + Arrays.toString(exceldata1L[maxMatches[2][2]]));
 			System.out.println("Matching on " + maxMatches[2][0] + " values.");
 			System.out.println("\n" + "\n");
 
+			System.out.println("The two arrays that match on the 4. most values are:");
+			System.out.println(headersNLB.get(maxMatches[3][1]) + " " + headers1L.get(maxMatches[3][2]) + 
+					"\n" + Arrays.toString(exceldataNLB[maxMatches[3][1]]) + 
+					"\n" + Arrays.toString(exceldata1L[maxMatches[3][2]]));
+			System.out.println("Matching on " + maxMatches[3][0] + " values.");
+			System.out.println("\n" + "\n");
+			
+			System.out.println("The two arrays that match on the 5. most values are:");
+			System.out.println(headersNLB.get(maxMatches[4][1]) + " " + headers1L.get(maxMatches[4][2]) + 
+					"\n" + Arrays.toString(exceldataNLB[maxMatches[4][1]]) + 
+					"\n" + Arrays.toString(exceldata1L[maxMatches[4][2]]));
+			System.out.println("Matching on " + maxMatches[4][0] + " values.");
+			System.out.println("\n" + "\n");			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
