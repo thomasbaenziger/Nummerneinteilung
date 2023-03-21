@@ -115,84 +115,36 @@ public class ExcelImporter {
 //			}
 
 			// Find the list combinations
-			int[][] maxMatches = new int[5][5];
+			int[][] maxMatches = new int[5][3];
 
 			for (int i = 0; i < exceldataNLB.length; i++) {
 				for (int j = 0; j < exceldata1L.length; j++) {
 					int matches = CountMatches.countMatches(exceldataNLB[i], exceldata1L[j]);
 
 					if (matches > maxMatches[0][0]) {
-						
-						// Store the current Matches to an temporary array
-						int[][] tempArray = tempArray(maxMatches);
 
-						// Store the amount of matches
-						maxMatches[0][0] = matches;
-						//Store the row and colum
-						maxMatches[0][1] = i;
-						maxMatches[0][2] = j;
-						// Move the current number one down
-						maxMatches[1] = tempArray[0];
-						maxMatches[2] = tempArray[1];
-						maxMatches[3] = tempArray[2];
-						maxMatches[4] = tempArray[3];
+						// Rewrite the maxMatches Array
+						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 1, matches, i, j );						
 						
 					} else if(matches > maxMatches[1][0]) {
 						
-						// Store the current Matches to an temporary array
-						int[][] tempArray = tempArray(maxMatches);
-										
-						// Store the amount of matches
-						maxMatches[1][0] = matches;
-						
-						//Store the row and colum
-						maxMatches[1][1] = i;
-						maxMatches[1][2] = j;
-						
-						// Move the other ranks
-						maxMatches[2] = tempArray[1];
-						maxMatches[3] = tempArray[2];
-						maxMatches[4] = tempArray[3];
+						// Rewrite the maxMatches Array
+						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 2, matches, i, j );		
 						
 					} else if(matches > maxMatches[2][0]) {
 						
-						// Store the current Matches to an temporary array
-						int[][] tempArray = tempArray(maxMatches);
-
-						// Store the amount of matches
-						maxMatches[2][0] = matches;
-						
-						//Store the row and colum
-						maxMatches[2][1] = i;
-						maxMatches[2][2] = j;
-						
-						// Move the other ranks
-						maxMatches[3] = tempArray[2];
-						maxMatches[4] = tempArray[3];
+						// Rewrite the maxMatches Array
+						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 3, matches, i, j );		
 						
 					}else if(matches > maxMatches[3][0]) {
 						
-						// Store the current Matches to an temporary array
-						int[][] tempArray = tempArray(maxMatches);
-
-						// Store the amount of matches
-						maxMatches[3][0] = matches;
-						
-						//Store the row and colum
-						maxMatches[3][1] = i;
-						maxMatches[3][2] = j;
-						
-						// Move the other ranks
-						maxMatches[4] = tempArray[3];
+						// Rewrite the maxMatches Array
+						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 4, matches, i, j );		
 						
 					} else if(matches > maxMatches[4][0]) {
 						
-						// Store the amount of matches
-						maxMatches[4][0] = matches;
-						
-						//Store the row and colum
-						maxMatches[4][1] = i;
-						maxMatches[4][2] = j;
+						// Rewrite the maxMatches Array
+						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 5, matches, i, j );		
 					}
 				}
 			}
@@ -211,17 +163,6 @@ public class ExcelImporter {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-
-	public static int[][] tempArray(int[][] array) {
-		int[][] tempArray = new int[5][5];
-		for (int k = 0; k < array.length; k++) {
-		    for (int l= 0; l < array[k].length; l++) {
-		    	tempArray[k][l] = array[k][l];
-		    }
-		}
-		return tempArray;
-	}	
 }
 
