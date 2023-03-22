@@ -9,7 +9,7 @@ public class ResultPrinter {
 									int[][] dataarray1L, 
 									int[][] matchesarray ) {
 		for( int i = 0; i < matchesarray.length; i++) {
-			System.out.println("The two arrays that match on the " + i + ". values are:");
+			System.out.println("The two arrays that match on the " + i + ". most values are:");
 			System.out.println(headerlistNLB.get(matchesarray[i][1]) + " NLB und " + headerlist1L.get(matchesarray[i][2]) + " 1L" + 
 					"\n" + Arrays.toString(dataarrayNLB[matchesarray[i][1]]) + 
 					"\n" + Arrays.toString(dataarray1L[matchesarray[i][2]]));

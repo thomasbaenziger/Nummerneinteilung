@@ -115,37 +115,16 @@ public class ExcelImporter {
 //			}
 
 			// Find the list combinations
-			int[][] maxMatches = new int[5][3];
+			int amountofMatches = 3;
+			int[][] maxMatches = new int[amountofMatches][3];
 
 			for (int i = 0; i < exceldataNLB.length; i++) {
 				for (int j = 0; j < exceldata1L.length; j++) {
 					int matches = CountMatches.countMatches(exceldataNLB[i], exceldata1L[j]);
 
-					if (matches > maxMatches[0][0]) {
+					// Store the matches to the maxMatches Array
+					maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, matches, i, j, amountofMatches );						
 
-						// Rewrite the maxMatches Array
-						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 1, matches, i, j );						
-						
-					} else if(matches > maxMatches[1][0]) {
-						
-						// Rewrite the maxMatches Array
-						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 2, matches, i, j );		
-						
-					} else if(matches > maxMatches[2][0]) {
-						
-						// Rewrite the maxMatches Array
-						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 3, matches, i, j );		
-						
-					}else if(matches > maxMatches[3][0]) {
-						
-						// Rewrite the maxMatches Array
-						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 4, matches, i, j );		
-						
-					} else if(matches > maxMatches[4][0]) {
-						
-						// Rewrite the maxMatches Array
-						maxMatches = StoreMatchingNumbers.storeMatchingNumbers(maxMatches, 5, matches, i, j );		
-					}
 				}
 			}
 			
