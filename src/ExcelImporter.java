@@ -150,15 +150,7 @@ public class ExcelImporter {
 			}
 			
 			// Print the results
-			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches[0], "most");
-
-			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches[1], "2.");
-
-			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches[2], "3.");
-			
-			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches[3], "4.");
-			
-			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches[4], "5.");		
+			ResultPrinter.resultPrinter(headersNLB, headers1L, exceldataNLB, exceldata1L, maxMatches);	
 			
 		} catch (IOException e) {
 			e.printStackTrace();
