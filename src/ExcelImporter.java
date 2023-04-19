@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,7 +15,7 @@ public class ExcelImporter {
 
 		try {
 			// Create a File object that represents the Excel file to be imported
-			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung_22_23.xlsx");
+			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung_23_24.xlsx");
 
 			// Create a FileInputStream to read the file
 			FileInputStream inputStream = new FileInputStream(file);
@@ -115,7 +114,7 @@ public class ExcelImporter {
 //			}
 
 			// Find the list combinations
-			int amountofMatches = 3;
+			int amountofMatches = 15;
 			int[][] maxMatches = new int[amountofMatches][3];
 
 			for (int i = 0; i < exceldataNLB.length; i++) {
