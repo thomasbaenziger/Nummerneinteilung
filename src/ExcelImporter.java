@@ -15,7 +15,7 @@ public class ExcelImporter {
 
 		try {
 			// Create a File object that represents the Excel file to be imported
-			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung_23_24.xlsx");
+			File file = new File("C:\\Users\\CH00BZS\\git\\Nummerneinteilung\\src\\Nummerneinteilung_23_24_def.xlsx");
 
 			// Create a FileInputStream to read the file
 			FileInputStream inputStream = new FileInputStream(file);
@@ -37,7 +37,7 @@ public class ExcelImporter {
 			
 			// Create a 2-dimensional array to hold the cell values
 			List<String> headersNLB = new ArrayList<>();
-			int[][] exceldataNLB = new int[numRowsNLB][numColsNLB-1];
+			int[][] exceldataNLB = new int[numColsNLB][numRowsNLB-1];
 
 			// Loop through each row in the sheet
 			// Get the headers from the excel and store them in a list
@@ -75,7 +75,7 @@ public class ExcelImporter {
 			
 			// Create a 2-dimensional array to hold the cell values
 			List<String> headers1L = new ArrayList<>();
-			int[][] exceldata1L = new int[numRows1L][numCols1L-1];
+			int[][] exceldata1L = new int[numCols1L][numRows1L-1];
 
 			// Loop through each row in the sheet
 			// Get the headers from the excel and store them in a list
@@ -105,16 +105,8 @@ public class ExcelImporter {
 			inputStream.close();
 			workbook.close();
 
-			// Print the Array
-//			for (int[] row : exceldata) {
-//				for (int value : row) {
-//					System.out.print(value + "\t");
-//				}
-//				System.out.println();
-//			}
-
 			// Find the list combinations
-			int amountofMatches = 15;
+			int amountofMatches = 6;
 			int[][] maxMatches = new int[amountofMatches][3];
 
 			for (int i = 0; i < exceldataNLB.length; i++) {
